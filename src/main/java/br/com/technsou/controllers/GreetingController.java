@@ -1,4 +1,4 @@
-package br.com.technsou.model.controllers;
+package br.com.technsou.controllers;
 
 
 import br.com.technsou.Greeting;

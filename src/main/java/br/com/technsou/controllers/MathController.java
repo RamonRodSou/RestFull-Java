@@ -1,4 +1,4 @@
-package br.com.technsou.model.controllers;
+package br.com.technsou.controllers;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
