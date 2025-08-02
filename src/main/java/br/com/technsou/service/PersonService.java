@@ -1,6 +1,9 @@
 package br.com.technsou.service;
 
+import br.com.technsou.dto.PersonDTO;
 import br.com.technsou.exception.ResourceNotFoundException;
+import static br.com.technsou.mapper.ObjectMapper.parseListObjects;
+import static br.com.technsou.mapper.ObjectMapper.parseObject;
 import br.com.technsou.model.Person;
 import br.com.technsou.repository.PersonRepository;
 import org.slf4j.Logger;
@@ -22,25 +25,28 @@ public class PersonService {
 
     private Logger logger = LoggerFactory.getLogger(PersonService.class.getName());
 
-    public List<Person> findAll(){
+    public List<PersonDTO> findAll(){
         logger.info("Finding all Persons");
-        return repository.findAll();
+        return parseListObjects(repository.findAll(), PersonDTO.class);
     }
 
-    public Person findById(Long id){
+    public PersonDTO findById(Long id){
         logger.info("Finding one Person");
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+        var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+        return parseObject(entity, PersonDTO.class);
     }
 
-    public Person create(Person person){
+    public PersonDTO create(PersonDTO person){
         logger.info("Creating one Person!");
-        return repository.save(person);
+        var entity = parseObject(person, Person.class);
+        return parseObject(repository.save(entity), PersonDTO.class);
     }
 
-    public Person update(Person person){
+    public PersonDTO update(PersonDTO person){
         logger.info("Updating one Person!");
         Person entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-        return repository.save(entityUpdate(person, entity));
+        var entityUpdated = entityUpdate(person, entity);
+        return parseObject(repository.save(entityUpdated), PersonDTO.class);
     }
 
     public void delete(Long id){
@@ -49,8 +55,8 @@ public class PersonService {
         repository.delete(entity);
     }
 
-    private Person entityUpdate(Person person, Person entity) {
-        entity.setFistName(person.getFistName());
+    private Person entityUpdate(PersonDTO person, Person entity) {
+        entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
