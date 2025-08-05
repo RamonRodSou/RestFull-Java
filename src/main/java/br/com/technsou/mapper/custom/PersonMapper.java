@@ -11,7 +11,7 @@ public class PersonMapper {
         dto.setId(person.getId());
         dto.setFirstName(person.getFirstName());
         dto.setLastName(person.getLastName());
-        dto.setBirthDate(person.getBirthDate());
+//        dto.setBirthDate(person.getBirthDate());
         dto.setAddress(person.getAddress());
         dto.setGender(person.getGender());
         return dto;
@@ -21,7 +21,7 @@ public class PersonMapper {
         Person entity = new Person();
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
-        entity.setBirthDate(person.getBirthDate());
+//        entity.setBirthDate(person.getBirthDate());
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
         return entity;

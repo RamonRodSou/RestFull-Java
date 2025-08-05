@@ -28,8 +28,8 @@ public class Person  implements Serializable {
     @Column(nullable = false, length = 6)
     private String gender;
 
-    @Column(name = "birth_date", nullable = true)
-    private Date birthDate;
+//    @Column(name = "birth_date", nullable = true)
+//    private Date birthDate;
 
     public Person() {}
 
@@ -73,13 +73,13 @@ public class Person  implements Serializable {
         this.gender = gender;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
+//    public Date getBirthDate() {
+//        return birthDate;
+//    }
+//
+//    public void setBirthDate(Date birthDate) {
+//        this.birthDate = birthDate;
+//    }
 
     @Override
     public boolean equals(Object o) {
