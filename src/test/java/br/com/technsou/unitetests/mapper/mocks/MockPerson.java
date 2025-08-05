@@ -1,6 +1,6 @@
 package br.com.technsou.unitetests.mapper.mocks;
 
-import br.com.technsou.dto.PersonDTO;
+import br.com.technsou.dto.v1.PersonDTO;
 import br.com.technsou.model.Person;
 
 import java.util.ArrayList;

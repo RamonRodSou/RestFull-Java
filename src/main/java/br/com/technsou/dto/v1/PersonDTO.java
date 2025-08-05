@@ -1,4 +1,4 @@
-package br.com.technsou.dto;
+package br.com.technsou.dto.v1;
 
 
 import java.io.Serializable;
