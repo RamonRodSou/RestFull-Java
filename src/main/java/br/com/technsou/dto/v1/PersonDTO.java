@@ -1,21 +1,47 @@
 package br.com.technsou.dto.v1;
 
 
-import java.io.Serializable;
-import java.util.Objects;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonProperty;
+//import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import br.com.technsou.serializer.GenderSerializer;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+
+import java.io.Serializable;
+import java.util.Date;
+
+//@JsonPropertyOrder({"id", "first_name", "last_name", "address", "gender"})
+@JsonFilter("PersonFilter")
 public class PersonDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
 
+    //@JsonProperty("first_name")
     private String firstName;
 
+    //@JsonProperty("last_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String lastName;
 
     private String address;
 
+    //@JsonIgnore
+    @JsonSerialize(using = GenderSerializer.class)
     private String gender;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date birthDate;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private String phoneNumber;
+
+    private String sensitiveData;
 
     public PersonDTO() {}
 
@@ -59,15 +85,19 @@ public class PersonDTO implements Serializable {
         this.gender = gender;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        PersonDTO person = (PersonDTO) o;
-        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(gender, person.gender);
+    public Date getBirthDate() { return birthDate;}
+
+    public void setBirthDate(Date birthDate) { this.birthDate = birthDate;}
+
+    public String getPhoneNumber() { return phoneNumber; }
+
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public String getSensitiveData() {
+        return sensitiveData;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, gender);
+    public void setSensitiveData(String sensitiveData) {
+        this.sensitiveData = sensitiveData;
     }
 }
