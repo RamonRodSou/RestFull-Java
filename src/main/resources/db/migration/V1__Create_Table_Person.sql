@@ -4,6 +4,8 @@ CREATE TABLE IF NOT EXISTS `person` (
       `last_name` varchar(80) NOT NULL,
       `address` varchar(100) NOT NULL,
       `gender` varchar(6) NOT NULL,
-      PRIMARY KEY (`id`)
+      `birth_date` date NOT NULL,
+      `phone_number` varchar(50) NOT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

@@ -1,7 +1,6 @@
 package br.com.technsou.service;
 
 import br.com.technsou.dto.v1.PersonDTO;
-import br.com.technsou.dto.v2.PersonDTOV2;
 import br.com.technsou.exception.ResourceNotFoundException;
 import static br.com.technsou.mapper.ObjectMapper.parseListObjects;
 import static br.com.technsou.mapper.ObjectMapper.parseObject;
@@ -77,6 +76,8 @@ public class PersonService {
         entity.setLastName(person.getLastName());
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
+        entity.setBirthDate(person.getBirthDate());
+        entity.setPhoneNumber(person.getPhoneNumber());
         return entity;
     }
 }
