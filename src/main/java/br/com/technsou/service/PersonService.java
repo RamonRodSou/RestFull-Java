@@ -34,11 +34,6 @@ public class PersonService {
         logger.info("Finding all Persons");
         return parseListObjects(repository.findAll(), PersonDTO.class);
     }
-//
-//    public List<PersonDTOV2> findAllV2(){
-//        logger.info("Finding all Persons");
-//        return parseListObjects(repository.findAll(), PersonDTOV2.class);
-//    }
 
     public PersonDTO findById(Long id){
         logger.info("Finding one Person");
@@ -51,12 +46,6 @@ public class PersonService {
         var entity = parseObject(person, Person.class);
         return parseObject(repository.save(entity), PersonDTO.class);
     }
-
-//    public PersonDTOV2 createV2(PersonDTOV2 person){
-//        logger.info("Creating one Person V2!");
-//        var entity = converter.convertDTOToEntity(person);
-//        return converter.convertEntityToDTO(repository.save(entity));
-//    }
 
     public PersonDTO update(PersonDTO person){
         logger.info("Updating one Person!");

@@ -4,19 +4,25 @@ package br.com.technsou.dto.v1;
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 //import com.fasterxml.jackson.annotation.JsonProperty;
 //import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+//import com.fasterxml.jackson.annotation.JsonFilter;
 
 import br.com.technsou.serializer.GenderSerializer;
-import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 //@JsonPropertyOrder({"id", "first_name", "last_name", "address", "gender"})
-@JsonFilter("PersonFilter")
+//@JsonFilter("PersonFilter")
+@XmlRootElement(name = "person")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PersonDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,7 +47,7 @@ public class PersonDTO implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String phoneNumber;
 
-    private String sensitiveData;
+//    private String sensitiveData;
 
     public PersonDTO() {}
 
@@ -93,11 +99,23 @@ public class PersonDTO implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public String getSensitiveData() {
-        return sensitiveData;
+//    public String getSensitiveData() {
+//        return sensitiveData;
+//    }
+//
+//    public void setSensitiveData(String sensitiveData) {
+//        this.sensitiveData = sensitiveData;
+//    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonDTO personDTO = (PersonDTO) o;
+        return Objects.equals(id, personDTO.id) && Objects.equals(firstName, personDTO.firstName) && Objects.equals(lastName, personDTO.lastName) && Objects.equals(address, personDTO.address) && Objects.equals(gender, personDTO.gender) && Objects.equals(birthDate, personDTO.birthDate) && Objects.equals(phoneNumber, personDTO.phoneNumber);
     }
 
-    public void setSensitiveData(String sensitiveData) {
-        this.sensitiveData = sensitiveData;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, address, gender, birthDate, phoneNumber);
     }
 }
