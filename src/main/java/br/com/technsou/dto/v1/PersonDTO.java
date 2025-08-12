@@ -1,11 +1,5 @@
 package br.com.technsou.dto.v1;
 
-
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-//import com.fasterxml.jackson.annotation.JsonProperty;
-//import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-//import com.fasterxml.jackson.annotation.JsonFilter;
-
 import br.com.technsou.serializer.GenderSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -13,31 +7,26 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlRootElement;
-
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-//@JsonPropertyOrder({"id", "first_name", "last_name", "address", "gender"})
-//@JsonFilter("PersonFilter")
 @XmlRootElement(name = "person")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PersonDTO implements Serializable {
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
 
-    //@JsonProperty("first_name")
     private String firstName;
 
-    //@JsonProperty("last_name")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String lastName;
 
     private String address;
 
-    //@JsonIgnore
     @JsonSerialize(using = GenderSerializer.class)
     private String gender;
 
@@ -46,8 +35,6 @@ public class PersonDTO implements Serializable {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String phoneNumber;
-
-//    private String sensitiveData;
 
     public PersonDTO() {}
 
@@ -98,14 +85,6 @@ public class PersonDTO implements Serializable {
     public String getPhoneNumber() { return phoneNumber; }
 
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-
-//    public String getSensitiveData() {
-//        return sensitiveData;
-//    }
-//
-//    public void setSensitiveData(String sensitiveData) {
-//        this.sensitiveData = sensitiveData;
-//    }
 
     @Override
     public boolean equals(Object o) {

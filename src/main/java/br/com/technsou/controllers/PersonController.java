@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -28,8 +27,6 @@ public class PersonController {
     )
     public PersonDTO findbyId(@PathVariable("id") Long id) {
         var person = service.findById(id);
-        person.setLastName(null);
-        person.setBirthDate(new Date());
         return person;
     }
 
