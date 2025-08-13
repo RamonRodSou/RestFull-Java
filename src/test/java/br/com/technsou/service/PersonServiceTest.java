@@ -136,7 +136,6 @@ class PersonServiceTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-
     private void assertsTestes(PersonDTO result, String id) {
         assertNotNull(result);
         assertNotNull(result.getId());
