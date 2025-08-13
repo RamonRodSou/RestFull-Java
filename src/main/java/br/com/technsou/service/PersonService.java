@@ -2,6 +2,7 @@ package br.com.technsou.service;
 
 import br.com.technsou.controllers.PersonController;
 import br.com.technsou.dto.v1.PersonDTO;
+import br.com.technsou.exception.RequiredObjectIsNullException;
 import br.com.technsou.exception.ResourceNotFoundException;
 import br.com.technsou.model.Person;
 import br.com.technsou.repository.PersonRepository;
@@ -41,29 +42,39 @@ public class PersonService {
     }
 
     public PersonDTO create(PersonDTO person){
+
+        if(person == null) throw new RequiredObjectIsNullException();
+
         logger.info("Creating one Person!");
         var entity = parseObject(person, Person.class);
+
         var dto = parseObject(repository.save(entity), PersonDTO.class);
         addHateoasLinks(dto);
         return dto;
     }
 
     public PersonDTO update(PersonDTO person){
+
+        if(person == null) throw new RequiredObjectIsNullException();
+
         logger.info("Updating one Person!");
         Person entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         var entityUpdated = entityUpdate(person, entity);
+
         var dto = parseObject(repository.save(entityUpdated), PersonDTO.class);
         addHateoasLinks(dto);
         return dto;
     }
 
     public void delete(Long id){
+
         logger.info("Deleting one Person!");
         Person entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         repository.delete(entity);
     }
 
     private static Person entityUpdate(PersonDTO person, Person entity) {
+
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
         entity.setAddress(person.getAddress());
@@ -74,6 +85,7 @@ public class PersonService {
     }
 
     private void addHateoasLinks(PersonDTO dto) {
+
         dto.add(linkTo(methodOn(PersonController.class).findbyId(dto.getId())).withSelfRel().withType("GET"));
         dto.add(linkTo(methodOn(PersonController.class).findAll()).withRel("findlAll").withType("GET"));
         dto.add(linkTo(methodOn(PersonController.class).create(dto)).withRel("create").withType("POST"));
