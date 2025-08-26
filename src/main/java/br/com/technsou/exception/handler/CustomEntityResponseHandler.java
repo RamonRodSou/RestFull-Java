@@ -1,6 +1,7 @@
 package br.com.technsou.exception.handler;
 
 import br.com.technsou.exception.ExceptionResponse;
+import br.com.technsou.exception.RequiredObjectIsNullException;
 import br.com.technsou.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(responde, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ResourceNotFoundException.class)
+    @ExceptionHandler(RequiredObjectIsNullException.class)
     public final ResponseEntity<ExceptionResponse> handleBadRequestException(Exception ex, WebRequest request) {
         ExceptionResponse responde = new ExceptionResponse(
                 new Date(),
